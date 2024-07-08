@@ -12,7 +12,7 @@ function PelabuhanList() {
   const pelabuhanData = useSelector((state) => state.pelabuhan.data);
   const pelabuhanStatus = useSelector((state) => state.pelabuhan.status);
   const pelabuhanError = useSelector((state) => state.pelabuhan.error);
-  const [selectedPelabuhan, setSelectedPelabuhan] = useState(pelabuhan) || "Pelabuhan list";
+  const [selectedPelabuhan, setSelectedPelabuhan] = useState(pelabuhan) || '';
 
   useEffect(() => {
     if (idNegara) {
@@ -47,7 +47,7 @@ function PelabuhanList() {
       <h5>Pelabuhan List</h5>
       <Dropdown>
         <Dropdown.Toggle variant="success" id="dropdown-basic">
-          {selectedPelabuhan}
+          {selectedPelabuhan ? selectedPelabuhan : 'Pelabuhan List'}
         </Dropdown.Toggle>
         <Dropdown.Menu>
           {pelabuhanData.map((pelabuhan) => (

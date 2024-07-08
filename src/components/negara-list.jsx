@@ -47,7 +47,7 @@ function NegaraList() {
       <h5>Negara List</h5>
       <Dropdown>
         <Dropdown.Toggle variant="success" id="dropdown-basic">
-          {selectedNegara}
+          {selectedNegara ? selectedNegara : 'Negara List'}
         </Dropdown.Toggle>
         <Dropdown.Menu>
           {negaraData.map((negara) => (

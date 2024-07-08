@@ -6,7 +6,7 @@ export const fetcBarangData = createAsyncThunk(
   async (idPelabuhan) => {
     try {
       const response = await axios.get(
-        `http://202.157.176.100:3000/barangs?filter={"where":{"id_pelabuhan":${idPelabuhan}}}`
+        `http://202.157.176.100:3000/barangs?filter={"where":{"id_pelabuhan":${idPelabuhan ? idPelabuhan : ''}}}`
       );
       return response.data;
     } catch (error) {
