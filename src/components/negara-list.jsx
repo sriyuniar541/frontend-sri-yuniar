@@ -1,38 +1,45 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchNegaraData } from '../reducer/negaraReducer';
-import Dropdown from 'react-bootstrap/Dropdown';
-import { fetchPelabuhanData } from '../reducer/pelabuhanReducer';
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchNegaraData } from "../reducer/negaraReducer";
+import Dropdown from "react-bootstrap/Dropdown";
+import { fetchPelabuhanData } from "../reducer/pelabuhanReducer";
+import { useLocation, useSearchParams } from "react-router-dom";
 
 function NegaraList() {
   const dispatch = useDispatch();
   const negaraData = useSelector((state) => state.negara.data);
   const negaraStatus = useSelector((state) => state.negara.status);
   const negaraError = useSelector((state) => state.negara.error);
-  const [selectedNegara, setSelectedNegara] = useState('Negara list');
-  const [idNegara, setIdNegara] = useState('1')
+  const [searchParams, setSearchParams] = useSearchParams();
+  const negara = searchParams.get("Negara") || "";
+  const [selectedNegara, setSelectedNegara] = useState(negara) || "Negara List";
 
   useEffect(() => {
     dispatch(fetchNegaraData());
   }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(fetchPelabuhanData(idNegara));
-  }, [dispatch, idNegara]);
+  const location = useLocation();
 
+  const queryParams = new URLSearchParams(location.search);
+  const initialIdNegara = queryParams.get("idNegara") || "1";
+  const [idNegara, setIdNegara] = useState(initialIdNegara);
 
-  if (negaraStatus === 'loading') {
+  if (negaraStatus === "loading") {
     return <div>Loading...</div>;
   }
 
-  if (negaraStatus === 'failed') {
+  if (negaraStatus === "failed") {
     return <div>Error: {negaraError}</div>;
   }
 
+
   const handleSelect = (nama_negara, id_negara) => {
     setSelectedNegara(nama_negara);
-    setIdNegara(idNegara)
-    localStorage.setItem('id_Negara', id_negara.toString());
+    setIdNegara(id_negara.toString());
+    queryParams.set("idNegara", id_negara.toString());
+    queryParams.set("Negara", nama_negara);
+    const newUrl = `${queryParams.toString()}`;
+    window.location.search = newUrl;
   };
 
   return (

@@ -17,10 +17,10 @@ export default function Navbar() {
                   <Link to="/" className="nav-link active" aria-current="page">Home</Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/about" className="nav-link">About</Link>
+                  <Link to="/" className="nav-link">About</Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/contact" className="nav-link">Contact</Link>
+                  <Link to="/" className="nav-link">Contact</Link>
                 </li>
               </ul>
               <form className="d-flex" role="search">

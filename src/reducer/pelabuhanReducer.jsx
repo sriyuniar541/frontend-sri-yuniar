@@ -5,7 +5,8 @@ export const fetchPelabuhanData = createAsyncThunk(
   'pelabuhan/fetchPelabuhanData',
   async (idNegara) => {
     try {
-      const response = await axios.get(`http://202.157.176.100:3000/pelabuhans?filter={"where" : {"id_negara": "${idNegara}"}}`);
+      const response = await axios.get(`http://202.157.176.100:3000/pelabuhans?filter={"where":{"id_negara":${idNegara}}}`);
+      console.log(idNegara);
       return response.data;
     } catch (error) {
       throw new Error('Failed to fetch data');
