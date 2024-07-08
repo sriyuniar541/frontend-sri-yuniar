@@ -42,7 +42,7 @@ function BarangList() {
 
   return (
     <div>
-      <h2>Barang List</h2>
+      <h5>Barang List</h5>
       <Dropdown>
         <Dropdown.Toggle variant="success" id="dropdown-basic">
           {selectedBarang}

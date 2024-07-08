@@ -1,16 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 import Home from '../pages/Home';
-// import About from '../pages/About';
-// import Contact from '../pages/Contact';
-
 export default function Navbar() {
   return (
     <Router>
-      <div>
-        <nav className="container navbar navbar-expand-lg bg-body-tertiary">
+      <div >
+        <nav className="container navbar navbar-expand-lg bg-body-tertiary mb-5">
           <div className="container-fluid">
-            <a className="navbar-brand" href="/">Navbar</a>
+            <a className="navbar-brand" href="/">Tiket App</a>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
             </button>
@@ -36,8 +33,6 @@ export default function Navbar() {
 
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* <Route path="/about" element={<About />} /> */}
-          {/* <Route path="/contact" element={<Contact />} /> */}
         </Routes>
       </div>
     </Router>

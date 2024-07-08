@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <div className='container'>
       <NegaraList negaraData={negara.data} />
-      <PelabuhanList pelabuhanData={pelabuhan.data}/>
+      <PelabuhanList pelabuhanData={pelabuhan.data} />
       <BarangList barangData={barang.data}/>
     </div>
   );
