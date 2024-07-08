@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetcBarangData } from "../reducer/barangReducer";
 import { Card, Dropdown } from "react-bootstrap";
+import { useSearchParams } from "react-router-dom";
 
 function BarangList() {
   const dispatch = useDispatch();
@@ -12,10 +13,12 @@ function BarangList() {
   const [diskon, setDiskon] = useState("0");
   const [harga, setHarga] = useState("0");
   const [desc, setDesc] = useState("........");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const idPelabuhan = searchParams.get('idPelabuhan') || '';
 
   useEffect(() => {
-    dispatch(fetcBarangData());
-  }, [dispatch]);
+    dispatch(fetcBarangData(idPelabuhan));
+  }, [dispatch,idPelabuhan]);
 
   if (barangStatus === "loading") {
     return <div>Loading...</div>;

@@ -2,22 +2,28 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchPelabuhanData } from "../reducer/pelabuhanReducer";
 import { Dropdown } from "react-bootstrap";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 
 function PelabuhanList() {
   const [searchParams, setSearchParams] = useSearchParams();
   const idNegara = searchParams.get('idNegara') || '';
+  const pelabuhan = searchParams.get('Pelabuhan') || '';
   const dispatch = useDispatch();
   const pelabuhanData = useSelector((state) => state.pelabuhan.data);
   const pelabuhanStatus = useSelector((state) => state.pelabuhan.status);
   const pelabuhanError = useSelector((state) => state.pelabuhan.error);
-  const [selectedPelabuhan, setSelectedPelabuhan] = useState("Pelabuhan list");
+  const [selectedPelabuhan, setSelectedPelabuhan] = useState(pelabuhan) || "Pelabuhan list";
 
   useEffect(() => {
     if (idNegara) {
       dispatch(fetchPelabuhanData(idNegara));
     }
   }, [dispatch, idNegara]);
+
+  const location = useLocation();
+
+  const queryParams = new URLSearchParams(location.search);
+  const initialIdNegara = queryParams.get("idNegara") || "1";
 
   if (pelabuhanStatus === "loading") {
     return <div>Loading...</div>;
@@ -27,9 +33,13 @@ function PelabuhanList() {
     return <div>Error: {pelabuhanError}</div>;
   }
 
-  const handleSelect = (nama_pelabuhan, id_negara) => {
+  const handleSelect = (nama_pelabuhan, id_pelabuhan) => {
     setSelectedPelabuhan(nama_pelabuhan);
-    setSearchParams({ idNegara: id_negara });
+    setSearchParams({ idNegara });
+    queryParams.set("idPelabuhan", id_pelabuhan.toString());
+    queryParams.set("Pelabuhan", nama_pelabuhan);
+    const newUrl = `${queryParams.toString()}`;
+    window.location.search = newUrl;
   };
 
   return (
@@ -43,7 +53,7 @@ function PelabuhanList() {
           {pelabuhanData.map((pelabuhan) => (
             <Dropdown.Item
               key={pelabuhan.id_pelabuhan}
-              onClick={() => handleSelect(pelabuhan.nama_pelabuhan, pelabuhan.id_negara)}
+              onClick={() => handleSelect(pelabuhan.nama_pelabuhan, pelabuhan.id_pelabuhan)}
             >
               {pelabuhan.nama_pelabuhan}
             </Dropdown.Item>
