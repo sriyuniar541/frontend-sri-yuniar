@@ -6,13 +6,13 @@ import { useLocation, useSearchParams } from "react-router-dom";
 
 function PelabuhanList() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const idNegara = searchParams.get('idNegara') || '';
-  const pelabuhan = searchParams.get('Pelabuhan') || '';
+  const idNegara = searchParams.get("idNegara") || "";
+  const pelabuhan = searchParams.get("Pelabuhan") || "";
   const dispatch = useDispatch();
   const pelabuhanData = useSelector((state) => state.pelabuhan.data);
   const pelabuhanStatus = useSelector((state) => state.pelabuhan.status);
   const pelabuhanError = useSelector((state) => state.pelabuhan.error);
-  const [selectedPelabuhan, setSelectedPelabuhan] = useState(pelabuhan) || '';
+  const [selectedPelabuhan, setSelectedPelabuhan] = useState(pelabuhan) || "";
 
   useEffect(() => {
     if (idNegara) {
@@ -47,17 +47,23 @@ function PelabuhanList() {
       <h5>Pelabuhan List</h5>
       <Dropdown>
         <Dropdown.Toggle variant="success" id="dropdown-basic">
-          {selectedPelabuhan ? selectedPelabuhan : 'Pelabuhan List'}
+          {selectedPelabuhan ? selectedPelabuhan : "Pelabuhan List"}
         </Dropdown.Toggle>
         <Dropdown.Menu>
-          {pelabuhanData.map((pelabuhan) => (
-            <Dropdown.Item
-              key={pelabuhan.id_pelabuhan}
-              onClick={() => handleSelect(pelabuhan.nama_pelabuhan, pelabuhan.id_pelabuhan)}
-            >
-              {pelabuhan.nama_pelabuhan}
-            </Dropdown.Item>
-          ))}
+          {pelabuhanData.length > 0 ? (
+            pelabuhanData.map((pelabuhan) => (
+              <Dropdown.Item
+                key={pelabuhan.id_pelabuhan}
+                onClick={() =>
+                  handleSelect(pelabuhan.nama_pelabuhan, pelabuhan.id_pelabuhan)
+                }
+              >
+                {pelabuhan.nama_pelabuhan}
+              </Dropdown.Item>
+            ))
+          ) : (
+            <Dropdown.Item>silahkan pilih negara...!</Dropdown.Item>
+          )}
         </Dropdown.Menu>
       </Dropdown>
     </div>
