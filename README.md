@@ -1,6 +1,5 @@
-# Nama Proyek Anda
-
-Deskripsi singkat proyek Anda di sini.
+# Tiket App
+Pengecekan barang berdasarkan negara dan pelabuhan yang dipilih
 
 ## Instalasi
 
